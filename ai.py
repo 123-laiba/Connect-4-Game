@@ -32,3 +32,40 @@ def score_window(window, piece):
         score -= 80
  
     return score
+
+def heuristic(board, piece):
+    # give a score to the whole board
+    # positive = good for AI, negative = bad for AI
+    total_score = 0
+ 
+    # prefer center column (better positions come from center)
+    center_col = COLS // 2
+    center_array = [board[r][center_col] for r in range(ROWS)]
+    center_count = center_array.count(piece)
+    total_score += center_count * 6
+ 
+    # check horizontal windows
+    for r in range(ROWS):
+        for c in range(COLS - 3):
+            window = [board[r][c+i] for i in range(4)]
+            total_score += score_window(window, piece)
+ 
+    # check vertical windows
+    for c in range(COLS):
+        for r in range(ROWS - 3):
+            window = [board[r+i][c] for i in range(4)]
+            total_score += score_window(window, piece)
+ 
+    # check diagonal going down-right
+    for r in range(ROWS - 3):
+        for c in range(COLS - 3):
+            window = [board[r+i][c+i] for i in range(4)]
+            total_score += score_window(window, piece)
+ 
+    # check diagonal going down-left
+    for r in range(ROWS - 3):
+        for c in range(3, COLS):
+            window = [board[r+i][c-i] for i in range(4)]
+            total_score += score_window(window, piece)
+ 
+    return total_score
