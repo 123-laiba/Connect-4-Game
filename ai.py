@@ -139,3 +139,9 @@ def minimax(board, depth, alpha, beta, is_maximizing):
                 break  # prune this branch
  
         return (best_col, best_score)
+
+def get_ai_move(board):
+    # this is the main function we call to get what column AI wants to play 
+    # start alpha at -infinity and beta at +infinity
+    col, score = minimax(board, DEPTH, -999999, 999999, True)
+    return col
