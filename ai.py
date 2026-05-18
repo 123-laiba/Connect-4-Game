@@ -7,7 +7,6 @@
 # alpha = best score the maximizer (AI) has found so far
 # beta  = best score the minimizer (human) has found so far
 # if beta <= alpha we can stop early because the other player will never let this happen
-# same result as minimax but much faster!
  
 from game_logic import *
  
